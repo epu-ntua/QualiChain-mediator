@@ -7,6 +7,7 @@ class RabbitMQClient(object):
     """
     This object is a RabbitMQ Client writter in Python3
     """
+
     def __init__(self):
         self.user_credentials = pika.PlainCredentials(
             username=RABBITMQ_USER,
@@ -41,3 +42,22 @@ class RabbitMQClient(object):
         channel.basic_publish(exchange='', routing_key=queue, body=message)
 
         self.connection.close()
+
+    def print_consumed_msg(self, ch, method, properties, body):
+        print(" [x] Received %r" % body)
+
+    def consumer(self, queue):
+        """
+        This function is a RabbitMQ Consumer and consumes messages from provided queue
+
+        Args:
+            queue: provided queue
+        """
+        channel = self.connection.channel()
+
+        channel.queue_declare(queue=queue)
+        channel.basic_consume(
+            queue=queue, on_message_callback=self.print_consumed_msg, auto_ack=True)
+
+        print(' [*] Waiting for messages. To exit press CTRL+C')
+        channel.start_consuming()
