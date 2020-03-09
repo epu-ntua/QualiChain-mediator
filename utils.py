@@ -57,4 +57,4 @@ def parse_dobie_response(xml_response):
 
             if skills:
                 extracted_skills.append(skills)
-    return skills
+    return extracted_skills
