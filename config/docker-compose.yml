@@ -1,5 +1,9 @@
 version: '3.7'
 
+networks:
+    qmediator:
+        driver: bridge
+
 services:
     rabbitmq:
         image: rabbitmq:3-management-alpine
@@ -14,3 +18,21 @@ services:
             - 5672:5672
         labels:
             NAME: rabbitmq
+        networks:
+          - qmediator
+
+    qmediator:
+        hostname: qmediator
+        container_name: qmediator
+        restart: always
+        build:
+            context: ".."
+            dockerfile: config/Dockerfile
+        environment:
+            RABBITMQ_HOST: rabbitmq
+        depends_on:
+            - rabbitmq
+        networks:
+            - qmediator
+
+
