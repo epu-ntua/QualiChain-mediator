@@ -1,5 +1,5 @@
 import pika
-
+from clients.dobie_client import send_data_to_dobie
 from settings import RABBITMQ_USER, RABBITMQ_PASSWORD, RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_VHOST
 
 
@@ -43,8 +43,8 @@ class RabbitMQClient(object):
 
         self.connection.close()
 
-    def print_consumed_msg(self, ch, method, properties, body):
-        print(" [x] Received %r" % body)
+    def sendt_msg_to_dobie(self, ch, method, properties, body):
+        send_data_to_dobie(body)
 
     def consumer(self, queue):
         """
@@ -57,7 +57,7 @@ class RabbitMQClient(object):
 
         channel.queue_declare(queue=queue)
         channel.basic_consume(
-            queue=queue, on_message_callback=self.print_consumed_msg, auto_ack=True)
+            queue=queue, on_message_callback=self.sendt_msg_to_dobie, auto_ack=True)
 
         print(' [*] Waiting for messages. To exit press CTRL+C')
         channel.start_consuming()

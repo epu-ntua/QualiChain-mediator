@@ -2,6 +2,8 @@ import os
 
 # DOBIE Settings
 DOBIE_HOST = os.environ.get('DOBIE_HOST', 'localhost')
+DOBIE_PORT = os.environ.get('DOBIE_PORT', 9006)
+
 
 # RABBITMQ Settings
 RABBITMQ_HOST = os.environ.get('RABBITMQ_HOST', 'localhost')
