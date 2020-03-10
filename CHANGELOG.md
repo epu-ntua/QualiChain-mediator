@@ -7,3 +7,7 @@
 + RabbitMQ docker-compose script created
 + Readme.md updated
 
+### 2020-03-10
++ some init files added
++ sample consumer and producer added
+
