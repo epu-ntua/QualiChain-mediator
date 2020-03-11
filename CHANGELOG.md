@@ -15,4 +15,5 @@
 + some configurations changed on Dockerfile and docker-compose script
 + run.sh configured for Windows
 + README.md updated
++ RabbitMQ queue added to project settings
 

@@ -1,6 +1,8 @@
 from clients.rabbitmq_client import RabbitMQClient
 import json
 
+from settings import APP_QUEUE
+
 if __name__ == "__main__":
     rabbit_mq = RabbitMQClient()
 
@@ -12,4 +14,4 @@ if __name__ == "__main__":
             }
         ]
     }
-    rabbit_mq.producer(queue='hello', message=json.dumps(message))
+    rabbit_mq.producer(queue=APP_QUEUE, message=json.dumps(message))
