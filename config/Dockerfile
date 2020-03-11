@@ -1,6 +1,6 @@
 FROM python:3.7-slim
 
-#RUN apt-get update && apt-get install -y netcat
+RUN apt-get update && apt-get install -y netcat
 
 WORKDIR /opt/qualichain_mediator
 

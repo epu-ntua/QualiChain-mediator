@@ -11,3 +11,8 @@
 + some init files added
 + sample consumer and producer added
 
+### 2020-03-11
++ some configurations changed on Dockerfile and docker-compose script
++ run.sh configured for Windows
++ README.md updated
+

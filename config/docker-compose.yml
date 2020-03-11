@@ -21,9 +21,9 @@ services:
         networks:
           - qmediator
 
-    qmediator:
-        hostname: qmediator
-        container_name: qmediator
+    qmediator_consumer:
+        hostname: qmediator_consumer
+        container_name: qmediator_consumer
         restart: always
         build:
             context: ".."
