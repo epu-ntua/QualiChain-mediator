@@ -12,3 +12,6 @@
 ### Send messages to Qualichain Mediator
 
 Send messages to Qualichain Mediator using this command: `python producer.py`
+
+### LICENSE
+This project is licensed under [MIT](https://github.com/epu-ntua/QualiChain-mediator/blob/master/LICENSE)
