@@ -17,3 +17,8 @@
 + README.md updated
 + RabbitMQ queue added to project settings
 
+### 2020-03-17
++ celery integrated with project
++ tasks file created to receive async messages
++ some changes on settings
+
