@@ -36,4 +36,20 @@ services:
         networks:
             - qmediator
 
+    qmediator_worker:
+        hostname: ${QMEDIATOR_WORKER_HOST}
+        container_name: ${QMEDIATOR_WORKER_HOST}
+        restart: always
+        command: celery -A tasks worker --loglevel=info
+        build:
+            context: ".."
+            dockerfile: config/Dockerfile
+        environment:
+            RABBITMQ_HOST: ${RABBITMQ_HOST}
+            DOBIE_HOST: ${DOBIE_HOST}
+        depends_on:
+            - rabbitmq
+        networks:
+            - qmediator
+
 

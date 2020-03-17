@@ -1,6 +1,9 @@
+import json
+
 import pika
 from clients.dobie_client import send_data_to_dobie
 from settings import RABBITMQ_USER, RABBITMQ_PASSWORD, RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_VHOST
+from tasks import consume_messages_async
 
 
 class RabbitMQClient(object):
@@ -43,10 +46,9 @@ class RabbitMQClient(object):
 
         self.connection.close()
 
-    @staticmethod
-    def on_response(self, ch, method, properties, body):
-        print(body)
-        # send_data_to_dobie(body)
+    def on_response_callback(self, ch, method, properties, body):
+        message = json.loads(body)
+        consume_messages_async.delay(message)
 
     def consumer(self, queue):
         """
@@ -59,7 +61,7 @@ class RabbitMQClient(object):
 
         channel.queue_declare(queue=queue)
         channel.basic_consume(
-            queue=queue, on_message_callback=self.on_response, auto_ack=True)
+            queue=queue, on_message_callback=self.on_response_callback, auto_ack=True)
 
-        print(' [*] Waiting for messages. To exit press CTRL+C')
+        print(' [*] Waiting for messages. To exit press CTRL+C', flush=True)
         channel.start_consuming()
