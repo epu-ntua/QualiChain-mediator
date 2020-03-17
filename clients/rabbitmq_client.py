@@ -43,8 +43,10 @@ class RabbitMQClient(object):
 
         self.connection.close()
 
-    def sendt_msg_to_dobie(self, ch, method, properties, body):
-        send_data_to_dobie(body)
+    @staticmethod
+    def on_response(self, ch, method, properties, body):
+        print(body)
+        # send_data_to_dobie(body)
 
     def consumer(self, queue):
         """
@@ -57,7 +59,7 @@ class RabbitMQClient(object):
 
         channel.queue_declare(queue=queue)
         channel.basic_consume(
-            queue=queue, on_message_callback=self.sendt_msg_to_dobie, auto_ack=True)
+            queue=queue, on_message_callback=self.on_response, auto_ack=True)
 
         print(' [*] Waiting for messages. To exit press CTRL+C')
         channel.start_consuming()

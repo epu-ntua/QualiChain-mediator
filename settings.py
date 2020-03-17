@@ -13,4 +13,4 @@ RABBITMQ_USER = os.environ.get('RABBITMQ_USER', 'rabbitmq')
 RABBITMQ_PASSWORD = os.environ.get('RABBITMQ_PASSWORD', 'rabbitmq')
 
 # APPLICATIO Settings
-APP_QUEUE = os.environ.get("mediator_queue")
+APP_QUEUE = os.environ.get('APP_QUEUE', "mediator_queue")
