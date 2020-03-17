@@ -47,7 +47,9 @@ class RabbitMQClient(object):
         self.connection.close()
 
     def on_response_callback(self, ch, method, properties, body):
+        """This function is enabled when a message is received on RabbitMQ consumer"""
         message = json.loads(body)
+
         consume_messages_async.delay(message)
 
     def consumer(self, queue):

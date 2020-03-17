@@ -24,7 +24,7 @@ APP_QUEUE = os.environ.get('APP_QUEUE', "mediator_queue")
 #   CELERY SETTINGS
 # =================================
 CELERY_BROKER_URL = 'pyamqp://{}:{}@{}:{}/{}'.format(
-    RABBITMQ_USER, RABBITMQ_PASSWORD, RABBITMQ_HOST, RABBITMQ_PORT, 'dobie')
+    RABBITMQ_USER, RABBITMQ_PASSWORD, RABBITMQ_HOST, RABBITMQ_PORT, RABBITMQ_VHOST)
 
 CELERY_ACCEPT_CONTENT = ['application/json']
 # CELERY_TASK_SERIALIZER = 'json'
