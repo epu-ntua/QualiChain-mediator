@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.3'
 
 networks:
     qmediator:
@@ -7,12 +7,12 @@ networks:
 services:
     rabbitmq:
         image: rabbitmq:3-management-alpine
-        hostname: rabbitmq
-        container_name: rabbitmq
+        hostname: ${RABBITMQ_HOST}
+        container_name: ${RABBITMQ_HOST}
         environment:
-            RABBITMQ_DEFAULT_USER: rabbitmq
-            RABBITMQ_DEFAULT_PASS: rabbitmq
-            RABBITMQ_DEFAULT_VHOST: /
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+            RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_DEFAULT_VHOST}
         ports:
             - 15672:15672
             - 5672:5672
@@ -22,14 +22,15 @@ services:
           - qmediator
 
     qmediator_consumer:
-        hostname: qmediator_consumer
-        container_name: qmediator_consumer
+        hostname: ${QMEDIATOR_CONSUMER_HOST}
+        container_name: ${QMEDIATOR_CONSUMER_HOST}
         restart: always
         build:
             context: ".."
             dockerfile: config/Dockerfile
         environment:
-            RABBITMQ_HOST: rabbitmq
+            RABBITMQ_HOST: ${RABBITMQ_HOST}
+            DOBIE_HOST: ${DOBIE_HOST}
         depends_on:
             - rabbitmq
         networks:
